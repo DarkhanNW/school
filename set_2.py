@@ -44,9 +44,27 @@ def vigenere_cipher(message, key):
     new_message_joined = "".join(list_new_message)
     return new_message_joined
 
+def scytale_cipher(message, shift):
+    list_message = list(message)
+    list_new_message = []
+    while len(list_message) % shift != 0:
+        list_message.append("_")
+    
+    for i in range(0, len(list_message)):
+        list_new_message.append(list_message
+                [
+            (i // shift)
+            + (len(list_message) // shift)
+            * (i % shift)
+            ]
+        )
 
+    new_message_joined = "".join(list_new_message)
+    return new_message_joined
+    
+    
 def main():
-    print(vigenere_cipher("TEST", "KEY"))
+    print(scytale_cipher("INFORMATION_AGE", 3))
 
 if __name__ == "__main__":
     main()
