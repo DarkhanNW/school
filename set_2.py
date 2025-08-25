@@ -13,11 +13,10 @@ def shift_letter(letter, shift):
 
 def caesar_cipher(message, shift):
     list_message = list(message)
-    list_new_message = []
+    decoded_message = ""
     for letter in list_message:
-        list_new_message.append(shift_letter(letter, shift))
-    new_message_joined = "".join(list_new_message)
-    return new_message_joined
+        decoded_message += shift_letter(letter, shift)
+    return decoded_message
 
 def shift_by_letter(letter, letter_shift):
     if letter == " ":
@@ -30,7 +29,7 @@ def shift_by_letter(letter, letter_shift):
 
 def vigenere_cipher(message, key):
     list_message = list(message)
-    list_new_message = []
+    decoded_message = ""
     list_key = list(key)
     list_key_index = 0
     while len(list_message) > len(list_key):
@@ -39,10 +38,10 @@ def vigenere_cipher(message, key):
 
     list_key_index = 0
     for letter in list_message:
-        list_new_message.append(shift_by_letter(letter,list_key[list_key_index]))
+        decoded_message += (shift_by_letter(letter,list_key[list_key_index]))
         list_key_index += 1
-    new_message_joined = "".join(list_new_message)
-    return new_message_joined
+    
+    return decoded_message
 
 def scytale_cipher(message, shift):
     list_message = list(message)
@@ -64,18 +63,19 @@ def scytale_cipher(message, shift):
 
 def scytale_decipher(message, shift):
     list_message = list(message)
-    new_message = ""
+    decoded_message = ""
     row_num = 0
     while len(list_message) % shift != 0:
         list_message.append("_")
     
     for i in range(0, shift):
-        new_message_part = (list_message[row_num::shift])
-        new_message += "".join(new_message_part)
+        decoded_message_part = (list_message[row_num::shift])
+        decoded_message += "".join(decoded_message_part)
         row_num += 1
 
-    return new_message
+    return decoded_message
 
+# for my own testing
 def main():
     print(scytale_cipher("INFORMATION_AGE", 3))
     print(scytale_decipher("IMNNA_FTAOIGROE", 3))
