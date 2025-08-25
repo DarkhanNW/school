@@ -28,8 +28,25 @@ def shift_by_letter(letter, letter_shift):
         return list_uppercase_letters[new_letter_index]
     return list_uppercase_letters[new_letter_index]
 
+def vigenere_cipher(message, key):
+    list_message = list(message)
+    list_new_message = []
+    list_key = list(key)
+    list_key_index = 0
+    while len(list_message) > len(list_key):
+        list_key.append(list_key[list_key_index])
+        list_key_index += 1
+
+    list_key_index = 0
+    for letter in list_message:
+        list_new_message.append(shift_by_letter(letter,list_key[list_key_index]))
+        list_key_index += 1
+    new_message_joined = "".join(list_new_message)
+    return new_message_joined
+
+
 def main():
-    pass
+    print(vigenere_cipher("TEST", "KEY"))
 
 if __name__ == "__main__":
     main()
