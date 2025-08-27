@@ -131,9 +131,9 @@ def eta(first_stop, second_stop, route_map):
     trip_end = None
 
     for route in route_map:
-        if first_stop in route[0]:
+        if first_stop in route[0] and trip_start == None:
             trip_start = route
-        if second_stop in route[1]:
+        if second_stop in route[1] and trip_end == None:
             trip_end = route
     
     while trip_processing:
@@ -143,7 +143,7 @@ def eta(first_stop, second_stop, route_map):
                     travel_time += route_map[route]["travel_time_mins"]
                     trip_processing = False
                     break
-                travel_time += route_map[trip_start]["travel_time_mins"]
+                travel_time += route_map[route]["travel_time_mins"]
                 trip_started = True
                 continue
             if trip_started:
@@ -157,10 +157,10 @@ def eta(first_stop, second_stop, route_map):
 
 # for my own testing
 def main():
-    print(eta("admu", "dlsu", legs))
-    print(eta("upd", "upd", legs))
-    print(eta("admu", "upd", legs))
-    print(eta("upd", "dlsu", legs))
+    print(eta("admu", "dlsu", legs)) # expecting 35
+    print(eta("upd", "upd", legs)) # expecting 100
+    print(eta("admu", "upd", legs)) # expecting 90
+    print(eta("upd", "dlsu", legs)) # expecting 45
 
 if __name__ == "__main__":
     main()
